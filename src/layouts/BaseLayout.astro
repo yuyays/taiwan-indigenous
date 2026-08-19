@@ -1,0 +1,43 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  locale: "en" | "ja";
+  title: string;
+  description: string;
+}
+
+const { locale, title, description } = Astro.props;
+const alternateLocale = locale === "en" ? "ja" : "en";
+const alternateLabel = locale === "en" ? "日本語" : "English";
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3efe5" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" hreflang={alternateLocale} href={`/${alternateLocale}/`} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href={`/${locale}/`} aria-label={title}>
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="brand-copy">
+          <strong>{locale === "en" ? "INDIGENOUS TAIWAN" : "台湾原住民族"}</strong>
+          <small>{locale === "en" ? "A LIVING ATLAS" : "生きているアトラス"}</small>
+        </span>
+      </a>
+      <a class="language-link" href={`/${alternateLocale}/`}>
+        <span aria-hidden="true">◎</span> {alternateLabel}
+      </a>
+    </header>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LearningJourney from "../../components/LearningJourney";
+
+const entries = await getCollection("peoples", ({ data }) => data.locale === "en");
+const order = ["amis", "tao", "siraya"];
+const profiles = entries
+  .map(({ data }) => data)
+  .sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
+---
+
+<BaseLayout
+  locale="en"
+  title="Indigenous Taiwan — A Living Atlas"
+  description="A prototype visual journey through the names and homelands of Taiwan's Indigenous peoples."
+>
+  <main>
+    <LearningJourney client:load locale="en" profiles={profiles} />
+    <section class="method-note" aria-labelledby="method-title">
+      <p class="eyebrow">PROTOTYPE STANDARD</p>
+      <h2 id="method-title">Built to be reviewed, not assumed.</h2>
+      <p>
+        Locations are illustrative markers, not fixed ethnic borders. Cultural text, maps,
+        pronunciations, and photography require citations, permissions, and community review
+        before public release.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

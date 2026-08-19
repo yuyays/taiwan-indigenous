@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LearningJourney from "../../components/LearningJourney";
+
+const entries = await getCollection("peoples", ({ data }) => data.locale === "ja");
+const order = ["amis", "tao", "siraya"];
+const profiles = entries
+  .map(({ data }) => data)
+  .sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
+---
+
+<BaseLayout
+  locale="ja"
+  title="台湾原住民族 — 生きているアトラス"
+  description="台湾原住民族の名前と故郷を地図で学ぶ、ビジュアル・ジャーニーの試作版。"
+>
+  <main>
+    <LearningJourney client:load locale="ja" profiles={profiles} />
+    <section class="method-note" aria-labelledby="method-title">
+      <p class="eyebrow">試作版の基準</p>
+      <h2 id="method-title">思い込みではなく、確認を重ねてつくる。</h2>
+      <p>
+        地図上の位置は目安であり、固定された民族境界ではありません。一般公開の前に、文化的説明、地図、発音、写真について、出典・許可・コミュニティによる確認が必要です。
+      </p>
+    </section>
+  </main>
+</BaseLayout>
