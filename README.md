@@ -36,6 +36,25 @@ checks Oxfmt output, and performs Astro's type and content checks with
 TypeScript 6. Use `pnpm lint:fix` for safe lint fixes and `pnpm format` to write
 formatting changes.
 
+Pull requests and pushes to `main` run the same lint, formatting, type/content,
+and production build checks in GitHub Actions. The workflow uses Node.js 24 and
+the pnpm version declared in `package.json` with a frozen lockfile.
+
+## Deployment
+
+The site is configured for a Cloudflare Pages project named
+`taiwan-indigenous`, served initially from
+`https://taiwan-indigenous.pages.dev`. Connect this repository to Pages with:
+
+- Production branch: `main`
+- Build command: `pnpm build`
+- Build output directory: `dist`
+- Root directory: `/`
+
+Cloudflare reads Node.js 24 from `.node-version`, while pnpm reads its pinned
+version from `package.json`. Update the `site` value in `astro.config.mjs` when
+attaching a custom domain.
+
 ## Content status
 
 All current cultural copy, locations, and media slots are provisional.
