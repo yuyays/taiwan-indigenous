@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 type Locale = "en" | "ja";
 type Screen = "welcome" | "map" | "chapter" | "profile" | "challenge" | "result";
 type MapMode = "homelands" | "present";
+type CustomProperties = CSSProperties & Partial<Record<`--${string}`, string | number>>;
+
+function customProperties(properties: CustomProperties): CSSProperties {
+  return properties;
+}
 
 export interface Profile {
   slug: string;
@@ -150,7 +155,7 @@ function AtlasMap({
           <button
             key={profile.slug}
             className={`fallback-marker fallback-marker--${profile.slug}`}
-            style={{ "--marker": profile.accent } as React.CSSProperties}
+            style={customProperties({ "--marker": profile.accent })}
             onClick={() => onSelect(profile.slug)}
             aria-label={t.openChapter.replace("{name}", profile.name)}
           >
@@ -331,7 +336,7 @@ export default function LearningJourney({ locale, profiles }: Props) {
       {screen === "chapter" && (
         <div
           className="chapter-screen"
-          style={{ "--profile-accent": active.accent } as React.CSSProperties}
+          style={customProperties({ "--profile-accent": active.accent })}
         >
           <button className="text-back" onClick={() => setScreen("map")}>
             ← {t.backMap}
@@ -361,7 +366,7 @@ export default function LearningJourney({ locale, profiles }: Props) {
       {screen === "profile" && (
         <div
           className="profile-screen"
-          style={{ "--profile-accent": active.accent } as React.CSSProperties}
+          style={customProperties({ "--profile-accent": active.accent })}
         >
           <header className="profile-heading">
             <button className="text-back" onClick={() => setScreen("chapter")}>
@@ -435,7 +440,7 @@ export default function LearningJourney({ locale, profiles }: Props) {
                   key={profile.slug}
                   aria-label={profile.mapLabel}
                   className={`quiz-marker quiz-marker--${profile.slug} ${selectedAnswer === profile.slug ? "selected" : ""}`}
-                  style={{ "--marker": profile.accent } as React.CSSProperties}
+                  style={customProperties({ "--marker": profile.accent })}
                   onClick={() => answer(profile.slug)}
                 >
                   {profile.slug === "amis" ? "A" : profile.slug === "tao" ? "B" : "C"}

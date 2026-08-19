@@ -31,9 +31,10 @@ pnpm quality
 pnpm build
 ```
 
-`pnpm quality` runs Oxlint, checks Oxfmt output, and performs Astro's type and
-content checks. Use `pnpm lint:fix` for safe lint fixes and `pnpm format` to
-write formatting changes.
+`pnpm quality` runs type-aware Oxlint using its TypeScript 7 native backend,
+checks Oxfmt output, and performs Astro's type and content checks with
+TypeScript 6. Use `pnpm lint:fix` for safe lint fixes and `pnpm format` to write
+formatting changes.
 
 ## Content status
 
