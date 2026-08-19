@@ -3,7 +3,7 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://living-atlas.example",
+  site: "https://taiwan-indigenous.pages.dev",
   output: "static",
   integrations: [react(), sitemap()],
   i18n: {
