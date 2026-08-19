@@ -60,7 +60,8 @@ const copy = {
     retry: "Try once more",
     continue: "Continue",
     resultTitle: "A first map is taking shape.",
-    resultBody: "You connected names with places—without turning cultures into borders or appearances.",
+    resultBody:
+      "You connected names with places—without turning cultures into borders or appearances.",
     score: "LOCATION MATCHES",
     replay: "Take the journey again",
     context: "THE STORY CONTINUES",
@@ -233,23 +234,39 @@ export default function LearningJourney({ locale, profiles }: Props) {
           <div className="hero-orbit hero-orbit--two" aria-hidden="true" />
           <div className="hero-copy">
             <p className="eyebrow">{t.prototype}</p>
-            <h1><span>{t.heroTitleA}</span> {t.heroTitleB}</h1>
+            <h1>
+              <span>{t.heroTitleA}</span> {t.heroTitleB}
+            </h1>
             <p className="hero-body">{t.heroBody}</p>
             <div className="hero-actions">
-              <button className="button button--primary" onClick={() => { setActiveIndex(0); setScreen("chapter"); }}>
-                {t.start}<span aria-hidden="true">↗</span>
+              <button
+                className="button button--primary"
+                onClick={() => {
+                  setActiveIndex(0);
+                  setScreen("chapter");
+                }}
+              >
+                {t.start}
+                <span aria-hidden="true">↗</span>
               </button>
               <button className="button button--quiet" onClick={() => setScreen("map")}>
-                {t.explore}<span aria-hidden="true">↓</span>
+                {t.explore}
+                <span aria-hidden="true">↓</span>
               </button>
             </div>
             <dl className="hero-meta">
-              <div><dt>○</dt><dd>{t.time}</dd></div>
-              <div><dt>◒</dt><dd>{t.lesson}</dd></div>
+              <div>
+                <dt>○</dt>
+                <dd>{t.time}</dd>
+              </div>
+              <div>
+                <dt>◒</dt>
+                <dd>{t.lesson}</dd>
+              </div>
             </dl>
           </div>
           <div className="hero-island" aria-hidden="true">
-            <svg viewBox="0 0 260 500" role="img">
+            <svg viewBox="0 0 260 500">
               <path d="M174 18c-37 24-57 76-67 127-11 54-48 93-62 145-13 47-9 118 22 172 15 26 43 21 59-5 25-40 32-99 55-148 24-52 42-100 43-151 2-58-9-112-28-136-7-9-14-9-22-4Z" />
             </svg>
             <span className="hero-dot hero-dot--one" />
@@ -267,8 +284,18 @@ export default function LearningJourney({ locale, profiles }: Props) {
             <p>{t.mapBody}</p>
           </header>
           <div className="layer-toggle" aria-label={t.mapLayerLabel}>
-            <button className={mode === "homelands" ? "active" : ""} onClick={() => setMode("homelands")}>{t.homeland}</button>
-            <button className={mode === "present" ? "active" : ""} onClick={() => setMode("present")}>{t.present}</button>
+            <button
+              className={mode === "homelands" ? "active" : ""}
+              onClick={() => setMode("homelands")}
+            >
+              {t.homeland}
+            </button>
+            <button
+              className={mode === "present" ? "active" : ""}
+              onClick={() => setMode("present")}
+            >
+              {t.present}
+            </button>
           </div>
           <div className="map-frame">
             <AtlasMap profiles={profiles} mode={mode} locale={locale} onSelect={openChapter} />
@@ -277,54 +304,112 @@ export default function LearningJourney({ locale, profiles }: Props) {
           <div className="map-list">
             {profiles.map((profile, index) => (
               <button key={profile.slug} onClick={() => openChapter(profile.slug)}>
-                <span className="map-index" style={{ background: profile.accent }}>{String(index + 1).padStart(2, "0")}</span>
-                <span><strong>{profile.name}</strong><small>{profile.mapLabel}</small></span>
+                <span className="map-index" style={{ background: profile.accent }}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span>
+                  <strong>{profile.name}</strong>
+                  <small>{profile.mapLabel}</small>
+                </span>
                 <span aria-hidden="true">↗</span>
               </button>
             ))}
           </div>
-          <button className="button button--primary button--wide" onClick={() => { setActiveIndex(0); setScreen("chapter"); }}>{t.guided}<span>→</span></button>
+          <button
+            className="button button--primary button--wide"
+            onClick={() => {
+              setActiveIndex(0);
+              setScreen("chapter");
+            }}
+          >
+            {t.guided}
+            <span>→</span>
+          </button>
         </div>
       )}
 
       {screen === "chapter" && (
-        <div className="chapter-screen" style={{ "--profile-accent": active.accent } as React.CSSProperties}>
-          <button className="text-back" onClick={() => setScreen("map")}>← {t.backMap}</button>
-          <div className="chapter-number" aria-hidden="true">{String(activeIndex + 1).padStart(2, "0")}</div>
+        <div
+          className="chapter-screen"
+          style={{ "--profile-accent": active.accent } as React.CSSProperties}
+        >
+          <button className="text-back" onClick={() => setScreen("map")}>
+            ← {t.backMap}
+          </button>
+          <div className="chapter-number" aria-hidden="true">
+            {String(activeIndex + 1).padStart(2, "0")}
+          </div>
           <div className="chapter-card">
-            <p className="eyebrow">{t.chapter} {activeIndex + 1} {t.of} {profiles.length}</p>
+            <p className="eyebrow">
+              {t.chapter} {activeIndex + 1} {t.of} {profiles.length}
+            </p>
             <p className="chapter-region">{active.region}</p>
-            <h1><small>{t.meet}</small>{active.name}</h1>
+            <h1>
+              <small>{t.meet}</small>
+              {active.name}
+            </h1>
             <p className="chinese-name">{active.chineseName}</p>
             <p>{active.introduction}</p>
-            <button className="button button--light" onClick={() => setScreen("profile")}>{t.enter}<span>→</span></button>
+            <button className="button button--light" onClick={() => setScreen("profile")}>
+              {t.enter}
+              <span>→</span>
+            </button>
           </div>
         </div>
       )}
 
       {screen === "profile" && (
-        <div className="profile-screen" style={{ "--profile-accent": active.accent } as React.CSSProperties}>
+        <div
+          className="profile-screen"
+          style={{ "--profile-accent": active.accent } as React.CSSProperties}
+        >
           <header className="profile-heading">
-            <button className="text-back" onClick={() => setScreen("chapter")}>← {t.chapter}</button>
+            <button className="text-back" onClick={() => setScreen("chapter")}>
+              ← {t.chapter}
+            </button>
             <p className="eyebrow">{t.pairedView}</p>
-            <h1>{active.name}<span>{active.chineseName}</span></h1>
+            <h1>
+              {active.name}
+              <span>{active.chineseName}</span>
+            </h1>
           </header>
           <div className="image-pair">
             <figure className="image-placeholder image-placeholder--life">
-              <div aria-hidden="true"><span /><span /><span /></div>
-              <figcaption><strong>{t.contemporary}</strong><small>{t.contemporaryNote}</small></figcaption>
+              <div aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+              <figcaption>
+                <strong>{t.contemporary}</strong>
+                <small>{t.contemporaryNote}</small>
+              </figcaption>
             </figure>
             <figure className="image-placeholder image-placeholder--detail">
-              <div aria-hidden="true"><i /><i /><i /><i /></div>
-              <figcaption><strong>{t.cultural}</strong><small>{t.culturalNote}</small></figcaption>
+              <div aria-hidden="true">
+                <i />
+                <i />
+                <i />
+                <i />
+              </div>
+              <figcaption>
+                <strong>{t.cultural}</strong>
+                <small>{t.culturalNote}</small>
+              </figcaption>
             </figure>
           </div>
           <aside className="memory-card">
-            <span className="memory-pin" style={{ background: active.accent }}>●</span>
-            <div><small>{t.remember}</small><strong>{active.memorableFact}</strong></div>
+            <span className="memory-pin" style={{ background: active.accent }}>
+              ●
+            </span>
+            <div>
+              <small>{t.remember}</small>
+              <strong>{active.memorableFact}</strong>
+            </div>
           </aside>
           <button className="button button--primary button--wide" onClick={advanceProfile}>
-            {activeIndex === profiles.length - 1 ? t.test : t.next}<span>→</span>
+            {activeIndex === profiles.length - 1 ? t.test : t.next}
+            <span>→</span>
           </button>
         </div>
       )}
@@ -332,13 +417,19 @@ export default function LearningJourney({ locale, profiles }: Props) {
       {screen === "challenge" && (
         <div className="challenge-screen">
           <header className="screen-heading">
-            <p className="eyebrow">{t.memoryMap} · {challengeIndex + 1}/{profiles.length}</p>
-            <h1>{t.question} <em>{challenge.name}</em>?</h1>
+            <p className="eyebrow">
+              {t.memoryMap} · {challengeIndex + 1}/{profiles.length}
+            </p>
+            <h1>
+              {t.question} <em>{challenge.name}</em>?
+            </h1>
             <p>{t.choose}</p>
           </header>
           <div className="challenge-layout">
             <div className="mini-island" aria-hidden="true">
-              <svg viewBox="0 0 200 360"><path d="M132 9c-29 18-43 58-51 96-8 40-36 69-47 108-10 36-7 89 17 129 11 20 32 16 44-4 19-30 24-74 42-111 18-39 32-75 33-113 1-43-7-84-21-102-5-7-11-7-17-3Z" /></svg>
+              <svg viewBox="0 0 200 360">
+                <path d="M132 9c-29 18-43 58-51 96-8 40-36 69-47 108-10 36-7 89 17 129 11 20 32 16 44-4 19-30 24-74 42-111 18-39 32-75 33-113 1-43-7-84-21-102-5-7-11-7-17-3Z" />
+              </svg>
               {profiles.map((profile) => (
                 <button
                   key={profile.slug}
@@ -346,7 +437,9 @@ export default function LearningJourney({ locale, profiles }: Props) {
                   className={`quiz-marker quiz-marker--${profile.slug} ${selectedAnswer === profile.slug ? "selected" : ""}`}
                   style={{ "--marker": profile.accent } as React.CSSProperties}
                   onClick={() => answer(profile.slug)}
-                >{profile.slug === "amis" ? "A" : profile.slug === "tao" ? "B" : "C"}</button>
+                >
+                  {profile.slug === "amis" ? "A" : profile.slug === "tao" ? "B" : "C"}
+                </button>
               ))}
             </div>
             <div className="answer-list">
@@ -354,7 +447,13 @@ export default function LearningJourney({ locale, profiles }: Props) {
                 <button
                   key={profile.slug}
                   disabled={Boolean(selectedAnswer)}
-                  className={selectedAnswer === profile.slug ? (profile.slug === challenge.slug ? "correct" : "wrong") : ""}
+                  className={
+                    selectedAnswer === profile.slug
+                      ? profile.slug === challenge.slug
+                        ? "correct"
+                        : "wrong"
+                      : ""
+                  }
                   onClick={() => answer(profile.slug)}
                 >
                   <span style={{ background: profile.accent }} />
@@ -364,7 +463,9 @@ export default function LearningJourney({ locale, profiles }: Props) {
             </div>
           </div>
           {selectedAnswer && (
-            <div className={`feedback ${answeredCorrectly ? "feedback--correct" : "feedback--retry"}`}>
+            <div
+              className={`feedback ${answeredCorrectly ? "feedback--correct" : "feedback--retry"}`}
+            >
               <strong>{answeredCorrectly ? t.correct : t.retry}</strong>
               <button onClick={advanceChallenge}>{answeredCorrectly ? t.continue : "↺"}</button>
             </div>
@@ -374,18 +475,33 @@ export default function LearningJourney({ locale, profiles }: Props) {
 
       {screen === "result" && (
         <div className="result-screen">
-          <div className="result-sun" aria-hidden="true"><span>{score}/{profiles.length}</span></div>
+          <div className="result-sun" aria-hidden="true">
+            <span>
+              {score}/{profiles.length}
+            </span>
+          </div>
           <p className="eyebrow">{t.journeyComplete}</p>
           <h1>{t.resultTitle}</h1>
           <p className="result-body">{t.resultBody}</p>
-          <div className="score-card"><strong>{score}/{profiles.length}</strong><span>{t.score}</span></div>
+          <div className="score-card">
+            <strong>
+              {score}/{profiles.length}
+            </strong>
+            <span>{t.score}</span>
+          </div>
           <section className="context-card">
             <p className="eyebrow">{t.context}</p>
             <h2>{t.contextTitle}</h2>
             <p>{t.contextBody}</p>
-            <div className="upcoming"><span>＋14</span>{t.upcoming}</div>
+            <div className="upcoming">
+              <span>＋14</span>
+              {t.upcoming}
+            </div>
           </section>
-          <button className="button button--primary button--wide" onClick={restart}>{t.replay}<span>↺</span></button>
+          <button className="button button--primary button--wide" onClick={restart}>
+            {t.replay}
+            <span>↺</span>
+          </button>
         </div>
       )}
     </section>

@@ -5,9 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "pnpm run check && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "lint": "oxlint . --deny-warnings --report-unused-disable-directives",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "quality": "pnpm run lint && pnpm run format:check && pnpm run check"
   },
   "dependencies": {
     "@astrojs/react": "latest",
@@ -20,6 +25,8 @@
     "@astrojs/check": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "oxfmt": "0.62.0",
+    "oxlint": "1.77.0",
     "typescript": "^6.0.0"
   }
 }

@@ -27,8 +27,13 @@ Then open `http://localhost:4321/en/` or `http://localhost:4321/ja/`.
 ## Validation
 
 ```bash
+pnpm quality
 pnpm build
 ```
+
+`pnpm quality` runs Oxlint, checks Oxfmt output, and performs Astro's type and
+content checks. Use `pnpm lint:fix` for safe lint fixes and `pnpm format` to
+write formatting changes.
 
 ## Content status
 
